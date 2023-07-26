@@ -1,0 +1,280 @@
+//Assignment 1 on variables and datatypes
+
+import 'dart:convert';
+
+
+void main() {
+  
+  /*
+  1. Take a list, say for example this one:
+ a = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+
+and write a program that prints out all the elements of the list that are less than 5.
+
+ */
+  
+  List <int> a = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
+  
+  print("----Number1-----");
+  
+  for (int number in a){
+    if(number < 5){
+      print(number);
+    }
+  }
+  
+  
+  /*
+   
+   2. Take two lists, for example:
+ a = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+
+
+  b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+
+and write a program that returns a list that contains only the elements that are common between them (without duplicates).
+Make sure your program works on two lists of different sizes.
+
+   
+  */
+  
+  List <int> a2 = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
+
+  List <int> b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  
+  
+    print("----Number2-----");
+
+  //Defining a getCommonElements function
+  List<int> getCommonElements(List<int> a2, List<int> b) {
+    
+   // Convert lists to  sets to remove duplicates
+  Set<int> set1 = a2.toSet(); 
+  Set<int> set2 = b.toSet();
+
+  // Find the unionelements between set1 and set2
+  Set<int> unionSet = set1.intersection(set2);
+
+  // Convert the set back to a list
+  List<int> unionElements = unionSet.toList();
+
+  return unionElements;
+
+  }
+
+   List<int> unionElements = getCommonElements(a2, b);
+  print("The list of common elements is: $unionElements"); 
+  
+  
+  
+  
+  /*
+   3. Write a program to check if a string is a palindrome or not.
+      A palindrome is a string that reads the same forwards and backwards. Eg mum
+ 
+  */
+  
+  print("----Number3-----");
+  
+  String myString = "mum";
+  bool isPalindrome(String str) {
+  // Convert the string to lowercase to handle case-insensitive
+  str = str.toLowerCase();
+
+  // Create a reversed version of the string
+  String reversedStr = str.split('').reversed.join('');
+
+  // Compare myString with the reversed string
+  return str == reversedStr;
+ }
+  if (isPalindrome(myString)) {
+    print("$myString is a palindrome.");
+  } else {
+    print("$myString is not a palindrome.");
+  }
+
+
+ 
+   
+     
+     
+  /*
+   
+   4. Write a program that takes a list of numbers for example
+a = [5, 10, 15, 20, 25]
+
+
+and makes a new list of only the first and last elements of the given list. For practice, write this code inside a function.
+
+   
+   */
+   
+  print("----Number4-----");
+   
+   
+List<int> a4 = [5, 10, 15, 20, 25];
+  
+List<int> firstAndLastElements(List<int> newList) {
+
+  int firstElement = newList.first;
+  int lastElement = newList.last;
+
+  return [firstElement, lastElement];
+ 
+   
+}
+  List<int> result = firstAndLastElements(a4);
+  print("The new list of first and last elements is: $result"); 
+  
+  
+  
+  /*
+   
+   5. Write a program (using functions!) that asks the user for a long string containing multiple words. 
+      Print back to the user the same string, except with the words in backwards order.
+      
+      For example, say I type the string:
+      My name is Michele
+
+
+      Then I would see the string:
+       Michele is name My
+
+   */
+  
+    print("----Number5-----");
+
+  // my string
+  String phrase1 = 'My name is Michele';
+  
+   String backwardString(String phrase) {
+  List<String> words = phrase.split(' ');
+  String reversedPhrase = words.reversed.join(' ');
+  return reversedPhrase;
+}
+  print(backwardString(phrase1)); 
+  
+  
+  
+  
+  /*
+   6. Write a program (function) that takes a list and returns a new list 
+        that contains all the elements of the first list minus all the duplicates.
+
+   */
+  
+  
+  
+      print("----Number6-----");
+
+   List<int> originalList = [10, 20, 20, 30, 40, 40, 50];
+
+  
+  List<T> removeDuplicates<T>(List<T> inputList) {
+    
+    // Convert the list to a set to remove duplicates
+  Set<T> uniqueElements = inputList.toSet(); 
+    
+     // Convert the set back to a list
+  List<T> result = uniqueElements.toList();
+
+  return result;
+}
+  
+ 
+  List<int> newList = removeDuplicates(originalList);
+  print(newList); 
+  
+  
+  
+  /*
+     7. In this exercise, load that JSON file below, 
+a, Extract the months of all the birthdays.
+B, count how many birthdays in each month.
+C, write a program to show the month with the heights and lowest birthday.
+   {
+    "May": 3,
+    "May": 5,
+    "November": 2,
+    "December": 1,
+    "December": 4,
+    "December": 2,
+}
+
+
+  */
+  
+  
+   print("----Number7-----");
+  
+  
+  String jsonData = '''
+  {
+    "birthdays": [
+      {"month": "May", "count": 3},
+      {"month": "May", "count": 5},
+      {"month": "November", "count": 2},
+      {"month": "December", "count": 1},
+      {"month": "December", "count": 4},
+      {"month": "December", "count": 2}
+    ]
+  }
+  ''';
+  
+  
+  Map<String, int> countBirthdaysByMonth(String jsonData) {
+  List<dynamic> data = jsonDecode(jsonData)['birthdays'];
+
+  Map<String, int> monthCounts = {};
+
+  for (var birthday in data) {
+    String month = birthday['month'];
+    int count = birthday['count'];
+    monthCounts[month] = (monthCounts[month] ?? 0) + count;
+  }
+
+  return monthCounts;
+}
+
+String findMonthWithMostBirthdays(Map<String, int> monthCounts) {
+  int maxCount = monthCounts.values.reduce((a, b) => a > b ? a : b);
+
+  String monthWithMostBirthdays = '';
+  monthCounts.forEach((month, count) {
+    if (count == maxCount) {
+      monthWithMostBirthdays = month;
+    }
+  });
+
+  return monthWithMostBirthdays;
+}
+
+String findMonthWithLeastBirthdays(Map<String, int> monthCounts) {
+  int minCount = monthCounts.values.reduce((a, b) => a < b ? a : b);
+
+  String monthWithLeastBirthdays = '';
+  monthCounts.forEach((month, count) {
+    if (count == minCount) {
+      monthWithLeastBirthdays = month;
+    }
+  });
+
+  return monthWithLeastBirthdays;
+}
+  
+  
+   Map<String, int> monthCounts = countBirthdaysByMonth(jsonData);
+  print("Birthdays in each month: $monthCounts");
+
+  String monthWithMostBirthdays = findMonthWithMostBirthdays(monthCounts);
+  String monthWithLeastBirthdays = findMonthWithLeastBirthdays(monthCounts);
+
+  print("Month with the most birthdays: $monthWithMostBirthdays");
+  print("Month with the least birthdays: $monthWithLeastBirthdays");
+  
+  
+  
+  
+}
+
