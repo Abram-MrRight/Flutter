@@ -1,0 +1,51 @@
+//Write a program that creates two list "houses" and "roads" where 
+//roads is  growable and house is fixed and add the lists to show one.
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  final List<String> houses = ['BuildingA', 'BuildingB', 'BuildingC'];
+  final List<String> roads = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('List Example'),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: _buildHouseList(),
+            ),
+            ElevatedButton(
+              onPressed: _addRoad,
+              child: const Text('Add Road'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHouseList() {
+    return ListView.builder(
+      itemCount: houses.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          title: Text(houses[index]),
+        );
+      },
+    );
+  }
+
+  void _addRoad() {
+    int roadNumber = roads.length + 1;
+    roads.add('Road $roadNumber');
+  }
+}
